@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from supabase import create_client
 from dotenv import load_dotenv
 import os
@@ -11,6 +12,22 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+
+# ROOT
+@app.get("/", response_class=HTMLResponse)
+def read_root():
+    return """
+    <html>
+        <head>
+            <title>Ginosis</title>
+        </head>
+        <body>
+            <h1>Welcome to Ginosis</h1>
+            <p>This is the API backend for Ginosis. Everything is up and running.</p>
+        </body>
+    </html>
+    """
 
 
 # CREATE
